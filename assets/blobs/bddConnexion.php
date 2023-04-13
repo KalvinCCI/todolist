@@ -10,7 +10,7 @@ define('PASSWRD', '');
 
 try{
     //Chaine de connexion a la base de donnees
-    $dsn = 'mysql:host=localhost;dbname=todolist';
+    $dsn = 'mysql:host=localhost;dbname=todolist;port=3306';
     
     // Options de connexion : encodage utf-8 pour mySQL
     $options = [PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"];
