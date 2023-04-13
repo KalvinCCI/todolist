@@ -12,13 +12,13 @@ CREATE TABLE IF NOT EXISTS ARTISTE (
   ESTCHANTEUR tinyint(1) NOT NULL,
   CONSTRAINT artiste_pk PRIMARY KEY (ID),
   CONSTRAINT artiste_chanteur_ck CHECK (ESTCHANTEUR IN(0,1))
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS GROUPE (
   ID int(11) NOT NULL AUTO_INCREMENT,
   NOM varchar(100) NOT NULL,
   CONSTRAINT groupe_pk PRIMARY KEY (ID)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS MORCEAU (
   ID int(11) NOT NULL AUTO_INCREMENT,
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS MORCEAU (
   DUREE char(5) NOT NULL,
   CONSTRAINT morceau_pk PRIMARY KEY (ID),
   CONSTRAINT morceau_duree_ck CHECK (DUREE REGEXP '[0-9]{2}:[0-9]{2}') -- ou (DUREE REGEXP '\d\d:\d\d') 
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS ALBUM (
   ID int(11) NOT NULL AUTO_INCREMENT,
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS ALBUM (
   CONSTRAINT album_prix_ck CHECK (PRIX>0),
   CONSTRAINT album_artiste_groupe_ck CHECK (IDGROUPE IS NULL AND IDARTISTE IS NOT NULL 
     OR IDGROUPE IS NOT NULL AND IDARTISTE IS NULL)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS CONTENU (
   ID int(11) NOT NULL AUTO_INCREMENT,
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS CONTENU (
   CONSTRAINT contenu_morceau_fk FOREIGN KEY (IDMORCEAU) REFERENCES morceau(ID),
   CONSTRAINT contenu_album_fk FOREIGN KEY (IDALBUM) REFERENCES album(ID),
   CONSTRAINT contenu_uq UNIQUE (IDMORCEAU,IDALBUM)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS MEMBREGROUPE (
   ID int(11) NOT NULL AUTO_INCREMENT,
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS MEMBREGROUPE (
   CONSTRAINT membregroupe_groupe_fk FOREIGN KEY (IDGROUPE) REFERENCES groupe(ID),
   CONSTRAINT membregroupe_artiste_fk FOREIGN KEY (IDARTISTE) REFERENCES artiste(ID),
   CONSTRAINT membregroupe_uq UNIQUE (IDGROUPE,IDARTISTE)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS VENTE (
   ID int(11) NOT NULL AUTO_INCREMENT,
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS VENTE (
   CONSTRAINT vente_annee_length_ck CHECK (LENGTH(ANNEE)=4 AND ANNEE>=1900),
   CONSTRAINT vente_nbventes_positif_ck CHECK (NBVENTES > 0),
   CONSTRAINT vente_unique UNIQUE (IDALBUM,MOIS,ANNEE)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 -- Insert into MORCEAU (ID,TITRE,DUREE) values ('1','Eight Easy Steps','02:53'),('2','Out Is Through','03:53'),('3','Excuses','03:32');
@@ -271,14 +271,14 @@ Insert into MORCEAU (ID,TITRE,DUREE) values ('187','Hymn','01:19');
 Insert into MORCEAU (ID,TITRE,DUREE) values ('188','Chez Les Autres','02:50');
 Insert into MORCEAU (ID,TITRE,DUREE) values ('189','Angel','02:59');
 Insert into MORCEAU (ID,TITRE,DUREE) values ('190','Mariko','03:42');
-Insert into MORCEAU (ID,TITRE,DUREE) values ('191','Pas Si �loign� Que �a','03:03');
+Insert into MORCEAU (ID,TITRE,DUREE) values ('191','Pas Si éloigné Que ça','03:03');
 Insert into MORCEAU (ID,TITRE,DUREE) values ('192','This Is The Time (Duo Avec Oxmo Puccino)','04:08');
-Insert into MORCEAU (ID,TITRE,DUREE) values ('193','Du Haut De Nos Diff�rences (Duo Avec Salom� Leclerc)','03:43');
-Insert into MORCEAU (ID,TITRE,DUREE) values ('194','Yewend�','04:32');
+Insert into MORCEAU (ID,TITRE,DUREE) values ('193','Du Haut De Nos Différences (Duo Avec Salomé Leclerc)','03:43');
+Insert into MORCEAU (ID,TITRE,DUREE) values ('194','Yewendé','04:32');
 Insert into MORCEAU (ID,TITRE,DUREE) values ('195','Mon Lang(U)Age','03:15');
-Insert into MORCEAU (ID,TITRE,DUREE) values ('196','Un Dernier R�ve','03:35');
+Insert into MORCEAU (ID,TITRE,DUREE) values ('196','Un Dernier Rêve','03:35');
 Insert into MORCEAU (ID,TITRE,DUREE) values ('197','Bilady','03:12');
-Insert into MORCEAU (ID,TITRE,DUREE) values ('198','Toutes Les �les','03:31');
+Insert into MORCEAU (ID,TITRE,DUREE) values ('198','Toutes Les îles','03:31');
 Insert into MORCEAU (ID,TITRE,DUREE) values ('199','Papillon','04:23');
 Insert into MORCEAU (ID,TITRE,DUREE) values ('200','Sand','03:32');
 Insert into MORCEAU (ID,TITRE,DUREE) values ('201','Kebaluso','02:45');
@@ -405,7 +405,7 @@ Insert into MORCEAU (ID,TITRE,DUREE) values ('321','That Line','03:42');
 Insert into MORCEAU (ID,TITRE,DUREE) values ('322','First of September','02:57');
 Insert into MORCEAU (ID,TITRE,DUREE) values ('323','Letter to the Lord (Piano Version)','03:53');
 Insert into MORCEAU (ID,TITRE,DUREE) values ('324','I Try','03:22');
-Insert into MORCEAU (ID,TITRE,DUREE) values ('325','Hey Ya (Duet with T�t�)','03:48');
+Insert into MORCEAU (ID,TITRE,DUREE) values ('325','Hey Ya (Duet with Tété)','03:48');
 Insert into MORCEAU (ID,TITRE,DUREE) values ('326','Times They Are a Changin (Duet with Patrice)','03:26');
 Insert into MORCEAU (ID,TITRE,DUREE) values ('327','My Friend','02:18');
 Insert into MORCEAU (ID,TITRE,DUREE) values ('328','Better Together','03:28');
@@ -531,7 +531,7 @@ Insert into MORCEAU (ID,TITRE,DUREE) values ('447','Inside Of Love','04:59');
 Insert into MORCEAU (ID,TITRE,DUREE) values ('448','Hi-Speed Soul','04:39');
 Insert into MORCEAU (ID,TITRE,DUREE) values ('449','No Quick Fix','03:24');
 Insert into MORCEAU (ID,TITRE,DUREE) values ('450','Killian''s Red','06:13');
-Insert into MORCEAU (ID,TITRE,DUREE) values ('451','L� Pour �a','03:18');
+Insert into MORCEAU (ID,TITRE,DUREE) values ('451','Là Pour ça','03:18');
 Insert into MORCEAU (ID,TITRE,DUREE) values ('452','Happy Kid','04:09');
 Insert into MORCEAU (ID,TITRE,DUREE) values ('453','Treading Water','04:23');
 Insert into MORCEAU (ID,TITRE,DUREE) values ('454','Paper Boats','06:39');
@@ -790,7 +790,7 @@ Insert into MORCEAU (ID,TITRE,DUREE) values ('706','Don''t Keep Me Waiting','03:
 Insert into MORCEAU (ID,TITRE,DUREE) values ('707','You Let Me Down','03:09');
 Insert into MORCEAU (ID,TITRE,DUREE) values ('708','Where Did It Go Wrong','03:08');
 Insert into MORCEAU (ID,TITRE,DUREE) values ('709','Day Tripping','04:14');
-Insert into MORCEAU (ID,TITRE,DUREE) values ('710','Fran�oise','03:35');
+Insert into MORCEAU (ID,TITRE,DUREE) values ('710','Françoise','03:35');
 Insert into MORCEAU (ID,TITRE,DUREE) values ('711','You''re All I Have','04:33');
 Insert into MORCEAU (ID,TITRE,DUREE) values ('712','Hands Open','03:18');
 Insert into MORCEAU (ID,TITRE,DUREE) values ('713','Chasing Cars','04:28');
@@ -1035,11 +1035,11 @@ Insert into MORCEAU (ID,TITRE,DUREE) values ('951','Chanson Pour Les Sans-Abris'
 Insert into MORCEAU (ID,TITRE,DUREE) values ('952','La Femme Est L''avenir De L''amour','03:51');
 Insert into MORCEAU (ID,TITRE,DUREE) values ('953','L''amour Est Ainsi','04:59');
 Insert into MORCEAU (ID,TITRE,DUREE) values ('954','Il N''y A Pas D''amour Heureux','02:16');
-Insert into MORCEAU (ID,TITRE,DUREE) values ('955','Tu Dois La Prot�ger','03:35');
+Insert into MORCEAU (ID,TITRE,DUREE) values ('955','Tu Dois La Protéger','03:35');
 Insert into MORCEAU (ID,TITRE,DUREE) values ('956','C''est L''amour','03:44');
 Insert into MORCEAU (ID,TITRE,DUREE) values ('957','Fais Tes Preuves','05:48');
-Insert into MORCEAU (ID,TITRE,DUREE) values ('958','L''�toffe Du Respect','04:15');
-Insert into MORCEAU (ID,TITRE,DUREE) values ('959','L''Afrique Revit Ses R�ves','03:13');
+Insert into MORCEAU (ID,TITRE,DUREE) values ('958','L''étoffe Du Respect','04:15');
+Insert into MORCEAU (ID,TITRE,DUREE) values ('959','L''Afrique Revit Ses Rêves','03:13');
 
 
 Insert into ARTISTE (ID,NOM,ESTCHANTEUR) values ('1','Adam Clayton','0');
@@ -1058,7 +1058,7 @@ Insert into ARTISTE (ID,NOM,ESTCHANTEUR) values ('13','Christopher Wolstenholme'
 Insert into ARTISTE (ID,NOM,ESTCHANTEUR) values ('14','Cliff Martinez','0');
 Insert into ARTISTE (ID,NOM,ESTCHANTEUR) values ('15','Colin Greenwood','0');
 Insert into ARTISTE (ID,NOM,ESTCHANTEUR) values ('16','Craig Armstrong','0');
-Insert into ARTISTE (ID,NOM,ESTCHANTEUR) values ('17','Daby Tour�','1');
+Insert into ARTISTE (ID,NOM,ESTCHANTEUR) values ('17','Daby Touré','1');
 Insert into ARTISTE (ID,NOM,ESTCHANTEUR) values ('18','Damien Rice','1');
 Insert into ARTISTE (ID,NOM,ESTCHANTEUR) values ('19','Daniel Licht','0');
 Insert into ARTISTE (ID,NOM,ESTCHANTEUR) values ('20','Daniel Lorca','1');

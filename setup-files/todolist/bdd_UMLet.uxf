@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>290</x>
+      <y>200</y>
+      <w>330</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>utilisateurs
+--
+*id | INT PRIMARY KEY AUTO_INCREMENT*
+identifiant | VARCHAR(20) NOT NULL
+motDePasse | VARCHAR(45) NOT NULL
+courriel | VARCHAR(120) NOT NULL
+pseudonyme | VARCHAR(45)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>290</x>
+      <y>400</y>
+      <w>330</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>liste_items
+--
+*id | INT PRIMARY KEY AUTO_INCREMENT*
+_id_utilisateur | INT NOT NULL_
+intitule | VARCHAR(120) NOT NULL
+etat_valide | BOOL NOT NULL DEFAULT FALSE
+date_creation | DATETIME DEFAULT NOW()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>440</x>
+      <y>310</y>
+      <w>40</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;&gt;
+m1=1
+m2=n</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+</diagram>

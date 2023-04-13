@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/main.css">
+<?php require_once '../assets/blobs/headMetas.php' ?>
     <title>Todolist - Accueil</title>
+    <meta name="description" content="Creez votre ToDoList avec ce merveilleux site internet.">
 </head>
 <body>
 <?php require_once '../assets/blobs/header.php' ?>
