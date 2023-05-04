@@ -1,7 +1,52 @@
 <?php
-    session_start();
+if(session_status() === PHP_SESSION_NONE) session_start();
 
-    $_SESSION['validation']='inscription';
+require_once '../utils/bddConnexion.php';
+
+if(isset($_POST['form'])&&$_POST['form']==='inscription'){
+    $identifiant =  isset($_POST['identifiant'])?htmlspecialchars($_POST['identifiant']):null;
+    $motDePasse = isset($_POST['motDePasse'])?($_POST['motDePasse']):null;
+    $motDePasseVerif = isset($_POST['motDePasseVerif'])?($_POST['motDePasseVerif']):null;
+    $courriel = isset($_POST['courriel'])?htmlspecialchars($_POST['courriel']):null;
+    $pseudonyme = isset($_POST['pseudonyme'])?htmlspecialchars($_POST['pseudonyme']):null;
+
+    var_dump($identifiant, $motDePasse, $motDePasseVerif, $courriel, $pseudonyme);
+
+    if($identifiant == null || $motDePasse == null || $motDePasseVerif == null || $courriel == null){
+        $alert = 'Form not valid : Required informations not filled in.';
+        //header('Location: inscription.php');
+    } elseif($motDePasse !== $motDePasseVerif){
+        $alert = 'Form not valid : Passwords are not the same.';
+    } else {
+        $query = 'INSERT INTO utilisateurs (identifiant, motDePasse, courriel, pseudonyme) VALUES (:identifiant, :motDePasse, :courriel, :pseudonyme);' ;
+        $motDePasse = password_hash($motDePasse, PASSWORD_ARGON2ID);
+        $prep = $pdo->prepare($query);
+        $prep->bindParam(':identifiant', $identifiant);
+        $prep->bindParam(':motDePasse', $motDePasse);
+        $prep->bindParam(':courriel', $courriel);
+        $prep->bindParam(':pseudonyme', $pseudonyme);
+        $prep->execute();
+        $arrAll = $prep->fetchAll();
+
+        $alert = 'Form valid : inscription completed !';
+        $valid = true;
+    }
+
+    if(isset($alert)){
+        $_SESSION['alert'] = $alert;
+    }
+
+
+    if(isset($valid)&&$valid===true){
+        header('Location: connexion.php');
+        exit();
+    } else {
+        header('Location: inscription.php');
+        exit();
+    }
+
+}
+
 ?>
 <?php require_once '../assets/blobs/headMetas.php' ?>
     <title>Todolist - Inscription</title>
@@ -9,10 +54,12 @@
 </head>
 <body>
 <?php require_once '../assets/blobs/header.php' ?>
+<?php require_once '../utils/alert.php' ?>
 
     <main>
         <h1>Inscription</h1>
-        <form action="validation.php" method="post">
+        <form action="#" method="post">
+            <input name="form" type="hidden" value="inscription">
             <label for="identifiant">Identifiant de connexion</label>
             <input  id="identifiant" name="identifiant" type="text" required>
 
