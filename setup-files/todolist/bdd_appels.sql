@@ -3,6 +3,7 @@
 
 /* Verification mot de passe connexion */
 SELECT id FROM utilisateurs WHERE identifiant = :identifiant AND motDePasse = :motDePasse;
+SELECT id, motDePasse FROM utilisateurs WHERE identifiant = :identifiant;
 
 /* Information affichage */
 SELECT identifiant, pseudonyme FROM utilisateurs WHERE id = :id;

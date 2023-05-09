@@ -23,5 +23,5 @@ try{
     echo 'Connexion effectuées avec le driver ' . $pdo->getAttribute(PDO::ATTR_DRIVER_NAME) . '<br>';
 } catch(PDOException $e) {
     $msg = 'ERREUR PDO dans ' .$e->getFile() . ' :<br>' . $e->getLine(). ' :<br> ' . $e->getMessage();
-    die($msg);
+    exit($msg);
 }

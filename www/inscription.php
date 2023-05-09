@@ -10,7 +10,7 @@ if(isset($_POST['form'])&&$_POST['form']==='inscription'){
     $courriel = isset($_POST['courriel'])?htmlspecialchars($_POST['courriel']):null;
     $pseudonyme = isset($_POST['pseudonyme'])?htmlspecialchars($_POST['pseudonyme']):null;
 
-    var_dump($identifiant, $motDePasse, $motDePasseVerif, $courriel, $pseudonyme);
+    //var_dump($identifiant, $motDePasse, $motDePasseVerif, $courriel, $pseudonyme);
 
     if($identifiant == null || $motDePasse == null || $motDePasseVerif == null || $courriel == null){
         $alert = 'Form not valid : Required informations not filled in.';

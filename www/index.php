@@ -4,6 +4,7 @@
 </head>
 <body>
 <?php require_once '../assets/blobs/header.php' ?>
+<?php require_once '../utils/alert.php' ?>
 
     <main>
         <p>Bonjour, ceci est la page d'accueil</p>
