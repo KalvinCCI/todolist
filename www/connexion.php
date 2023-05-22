@@ -1,5 +1,5 @@
+<?php require_once '../assets/blobs/session.php' ?>
 <?php
-if(session_status() === PHP_SESSION_NONE) session_start();
 
 require_once '../utils/bddConnexion.php';
 
@@ -10,7 +10,7 @@ if(isset($_POST['form'])&&$_POST['form']==='connexion'){
     //var_dump($identifiant, $motDePasse, $motDePasseVerif, $courriel, $pseudonyme);
 
     if($identifiant == null || $motDePasse == null){
-        $alert = 'Form not valid : Required informations not filled in.';
+        $alert = 'E: Form not valid : Required informations not filled in.';
         //header('Location: inscription.php');
     } else {
         $query = 'SELECT * FROM utilisateurs WHERE identifiant = :identifiant;' ;
@@ -20,11 +20,12 @@ if(isset($_POST['form'])&&$_POST['form']==='connexion'){
         $arr = $prep->fetch();
 
         if ($arr != null && password_verify($motDePasse, $arr['motDePasse'])) {
-            $alert = 'Form valid : connection completed !';
+            $alert = 'S: Form valid : connection completed !';
             $valid = true;
+            $arr['pseudonyme'] = $arr['pseudonyme']?$arr['pseudonyme']:$arr['identifiant'];
             $_SESSION['user'] = $arr;      
         } else {
-            $alert = 'Form invalid : username or password incorrect !';
+            $alert = 'E: Form invalid : username or password incorrect !';
         }
         
     }

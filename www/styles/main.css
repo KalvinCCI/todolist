@@ -1,3 +1,61 @@
-p {
+body>:is(header, footer) p {
     color:red;
+}
+
+
+:is(.valide, .a_faire) .switch {
+    width: 2em;
+    height: 1em;
+    border-radius: 0.5em;
+    position: relative;
+    border: none;
+    font-size: 1.5em;
+    display: flex;
+    align-items: center;
+    padding: 3px;
+    text-align: left;
+}
+.valide .switch {
+    background-color: green;
+}
+.a_faire .switch {
+    background-color: red;
+}
+
+:is(.valide, .a_faire) .switch>span {
+    display: block;
+    height: 100%;
+    aspect-ratio: 1;
+    background: white;
+    overflow: hidden;
+    border-radius: 100%;
+    color: transparent;
+}
+
+:is(.valide, .a_faire) .switch:hover>span{
+    background: darkgray;
+}
+
+.a_faire .switch>span{
+    margin-left: auto;
+}
+
+aside.alert {
+    background-color: cornflowerblue;
+    position: fixed;
+    padding: 1rem;
+    border-radius: 1rem;
+    top: 6px;
+    right: 6px;
+    width: min(300px, 100%);
+    border: 1px solid blue;
+}
+aside.alert.error {
+    background-color: lightcoral;
+    border-color: red;
+}
+
+aside.alert.success {
+    background-color: lightgreen;
+    border-color: green;
 }

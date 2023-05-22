@@ -1,5 +1,5 @@
 /* REquetes preparees pour de le php */
-/*** Requetes liste_items ***/
+/*** Requetes utilisateurs ***/
 
 /* Verification mot de passe connexion */
 SELECT id FROM utilisateurs WHERE identifiant = :identifiant AND motDePasse = :motDePasse;

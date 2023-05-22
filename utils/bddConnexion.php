@@ -20,7 +20,7 @@ try{
     
     // Choix de la méhode d'information en cas d'erreur - levé d'exception
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo 'Connexion effectuées avec le driver ' . $pdo->getAttribute(PDO::ATTR_DRIVER_NAME) . '<br>';
+    //echo 'Connexion effectuées avec le driver ' . $pdo->getAttribute(PDO::ATTR_DRIVER_NAME) . '<br>';
 } catch(PDOException $e) {
     $msg = 'ERREUR PDO dans ' .$e->getFile() . ' :<br>' . $e->getLine(). ' :<br> ' . $e->getMessage();
     exit($msg);

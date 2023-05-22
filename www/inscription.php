@@ -1,5 +1,5 @@
+<?php require_once '../assets/blobs/session.php' ?>
 <?php
-if(session_status() === PHP_SESSION_NONE) session_start();
 
 require_once '../utils/bddConnexion.php';
 
@@ -13,10 +13,10 @@ if(isset($_POST['form'])&&$_POST['form']==='inscription'){
     //var_dump($identifiant, $motDePasse, $motDePasseVerif, $courriel, $pseudonyme);
 
     if($identifiant == null || $motDePasse == null || $motDePasseVerif == null || $courriel == null){
-        $alert = 'Form not valid : Required informations not filled in.';
+        $alert = 'E: Form not valid : Required informations not filled in.';
         //header('Location: inscription.php');
     } elseif($motDePasse !== $motDePasseVerif){
-        $alert = 'Form not valid : Passwords are not the same.';
+        $alert = 'E: Form not valid : Passwords are not the same.';
     } else {
         $query = 'INSERT INTO utilisateurs (identifiant, motDePasse, courriel, pseudonyme) VALUES (:identifiant, :motDePasse, :courriel, :pseudonyme);' ;
         $motDePasse = password_hash($motDePasse, PASSWORD_ARGON2ID);
@@ -28,7 +28,7 @@ if(isset($_POST['form'])&&$_POST['form']==='inscription'){
         $prep->execute();
         $arrAll = $prep->fetchAll();
 
-        $alert = 'Form valid : inscription completed !';
+        $alert = 'S: Form valid : inscription completed !';
         $valid = true;
     }
 
