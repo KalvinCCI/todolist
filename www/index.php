@@ -1,7 +1,4 @@
 <?php require_once '../assets/blobs/session.php' ?>
-<?php
-    $_SESSION['page'] = 'index';
-?>
 <?php require_once '../assets/blobs/headMetas.php' ?>
     <title>Todolist - Accueil</title>
     <meta name="description" content="Creez votre ToDoList avec ce merveilleux site internet.">
@@ -12,7 +9,10 @@
 
     <main>
         <h1>Bonjour, ceci est la page d'accueil</h1>
-<?php if (isset($user)): ?>
+<?php
+    if (isset($user)):
+        ////////Si un utilisateur est connecté////////
+?>
         <p>Bonjour <?=$user['pseudonyme']?>, voici vos 5 dernière tâches saisies :</p>
 
 <?php
@@ -31,16 +31,24 @@
         <ul>
 <?php       
             foreach ($arr as $todoitem):
-               require '../assets/blobs/todoitem.php';            
+                require '../assets/blobs/todoitem/affichage.php';            
             endforeach;
 ?>
         </ul>
-<?php   endif;?>
-        <?php require '../assets/blobs/ajouterTodoitem.php' ?>
-<?php else: ?>
+<?php 
+        endif;
+?>
+        <?php require '../assets/blobs/todoitem/ajouter.php' ?>
+<?php
+    else:
+        ////////Si l'utilisateur n'est pas connecté////////
+?>
         <p>Veuillez vous inscrire ou vous connecter !</p>
 
-<?php endif; ?>
+<?php
+    endif;
+        ////////////////////////////////////////////////////
+?>
     </main>
 
 <?php require_once '../assets/blobs/footer.php' ?>

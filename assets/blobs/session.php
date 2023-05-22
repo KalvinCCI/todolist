@@ -4,4 +4,5 @@
     if(isset($_SESSION['user'])){
         $user = $_SESSION['user'];
     }
+    unset($_SESSION['page']);
 ?>

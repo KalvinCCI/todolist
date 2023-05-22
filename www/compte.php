@@ -16,6 +16,12 @@
 
     <main>
         <h1>Ceci est la page de compte</h1>
+        <ul>
+            <li>id : <?= $user['id'] ?></li>
+            <li>identifiant de connexion : <?= $user['identifiant'] ?></li>
+            <li>courriel : <?= $user['courriel'] ?></li>
+            <li>pseudonyme : <?= $user['pseudonyme'] ?></li>
+        </ul>
     </main>
 
 <?php require_once '../assets/blobs/footer.php' ?>

@@ -19,8 +19,8 @@
         } else
 
         // Modification d'un todo
-        if(isset($_POST['update']['todoid'])) {
-            $todoid = $_POST['update']['todoid'];
+        if(isset($_POST['update']['etat']['todoid'])) {
+            $todoid = $_POST['update']['etat']['todoid'];
 
             $query = 'UPDATE liste_items SET etat_valide = NOT etat_valide WHERE id = :id_item AND id_utilisateur = :id_util;';
             $prep = $pdo->prepare($query);
@@ -28,8 +28,21 @@
             $prep->bindParam(':id_item', $todoid);
             $prep->execute();
 
-            $_SESSION['alert'] = "S: ToDo updated successfully !";
+            $_SESSION['alert'] = "S: ToDo etat_valide updated successfully !";
 
+        } else
+        if (isset($_POST['update']['intitule']['todoid']) && isset($_POST['update']['intitule']['intitule'])) {
+            $todoid = $_POST['update']['intitule']['todoid'];
+            $intitule = $_POST['update']['intitule']['intitule'];
+
+            $query = 'UPDATE liste_items SET intitule = :intitule WHERE id = :id_item AND id_utilisateur = :id_util;';
+            $prep = $pdo->prepare($query);
+            $prep->bindParam(':id_util', $id_util);
+            $prep->bindParam(':id_item', $todoid);
+            $prep->bindParam(':intitule', $intitule);
+            $prep->execute();
+
+            $_SESSION['alert'] = "S: ToDo intitule updated successfully !";
         } else
 
         // Suppression d'un todo
@@ -54,11 +67,8 @@
     }
 
     if($_SESSION['page'] == 'toutes') {
-        $_SESSION['page'] == null;
         header('Location: toutes.php');
         exit();
-    } else {
-        $_SESSION['page'] == null;
     }
     header('Location: index.php');
     exit();

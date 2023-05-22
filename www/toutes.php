@@ -35,13 +35,13 @@
         <ul>
 <?php       
             foreach ($arr as $todoitem):
-               require '../assets/blobs/todoitem.php';            
+               require '../assets/blobs/todoitem/affichage.php';            
             endforeach;
 ?>
         </ul>
 <?php   endif;?>
 
-<?php require '../assets/blobs/ajouterTodoitem.php' ?>
+<?php require '../assets/blobs/todoitem/ajouter.php' ?>
     </main>
     
 <?php require_once '../assets/blobs/footer.php' ?>
