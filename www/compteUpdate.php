@@ -105,8 +105,35 @@
         } else {
             $_SESSION['alert'] = 'E: change_pseudonyme form incomplete';
         }
+    
+    // Suppression du compte
+    } elseif (isset($_POST['delete_account'])) {
+        if ( isset($_POST['delete_account']['identifiant']) && isset($_POST['delete_account']['pass']) ) {
+            if ( $_POST['delete_account']['identifiant'] == $user['identifiant']) {
+                if( password_verify($_POST['delete_account']['pass'], $user['motDePasse']) ) {
+
+                    $query = 'DELETE FROM liste_items WHERE id_utilisateur = :id_util;' ;
+                    $prep = $pdo->prepare($query);
+                    $prep->bindParam(':id_util', $user['id']);
+                    $prep->execute();
+                    $query = 'DELETE FROM utilisateurs WHERE id = :id_util;' ;
+                    $prep = $pdo->prepare($query);
+                    $prep->bindParam(':id_util', $user['id']);
+                    $prep->execute();
+                    $_SESSION['alert'] = 'S: delete_account: success';
+
+                    unset($_SESSION['user']);
+                } else {
+                    $_SESSION['alert'] = 'E: delete_account: password incorrect';
+                }
+            } else {
+                $_SESSION['alert'] = 'E: delete_account: identifiant incorrect';
+            }
+        } else {
+            $_SESSION['alert'] = 'E: delete_account: form incomplete';
+        }
     } else {
-        $_SESSION['alert'] = 'Es un gran bro momento...<br> No data sent to compteUpdate or accessed directly via the url';
+        $_SESSION['alert'] = ' Es un gran bro momento...<br> No data sent to compteUpdate or accessed directly via the url';
     }
     
 

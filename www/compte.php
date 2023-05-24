@@ -38,7 +38,7 @@
                 <input  id="change_identifiant_pswrd" type="password" name="change_identifiant[pass]" required>
                 <button type="submit">Confirmer</button>
             </form>
-                <button>Annuler</button>
+                <button onclick="change_identifiant.close()">Annuler</button>
         </dialog>
         <dialog id="change_password">
             <h1>Changer de mot de passe</h1>
@@ -51,7 +51,7 @@
                 <input  id="change_password_pswrd" type="password" name="change_password[pass]" required>
                 <button type="submit">Confirmer</button>
             </form>
-            <button>Annuler</button>
+            <button onclick="change_password.close()">Annuler</button>
         </dialog>
         <dialog id="change_courriel">
             <h1>Changer d'adresse de courriel</h1>
@@ -64,7 +64,7 @@
                 <input  id="change_courriel_pswrd" type="password" name="change_courriel[pass]" required>
                 <button type="submit">Confirmer</button>
             </form>
-                <button>Annuler</button>
+                <button onclick="change_courriel.close()">Annuler</button>
         </dialog>
         <dialog id="change_pseudonyme">
             <h1>Changer de pseudonyme</h1>
@@ -73,7 +73,22 @@
                 <input  id="change_pseudonyme_input" type="text" name="change_pseudonyme[new_pseudonyme]">
                 <button type="submit">Confirmer</button>
             </form>
-                <button>Annuler</button>
+                <button onclick="change_pseudonyme.close()">Annuler</button>
+        </dialog>
+
+        <h2>Suppression du compte </h2>
+        <button onclick="delete_account.showModal()">Supprimer mon compte</button>
+        <dialog id="delete_account">
+            <h1>Supprimer le compte définitivement</h1>
+            <p>Cette action est définitive et ne peut pas être inversée</p>
+            <form action="compteUpdate.php" method="POST">
+                <label for="delete_account_input">Identifiant :</label>
+                <input  id="delete_account_input" type="text" name="delete_account[identifiant]">
+                <label for="delete_account_pswrd">Mot de passe :</label>
+                <input  id="delete_account_pswrd" type="password" name="delete_account[pass]" required>
+                <button type="submit">Supprimer</button>
+            </form>
+            <button onclick="delete_account.close()">Annuler</button>
         </dialog>
     </main>
 
