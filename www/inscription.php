@@ -18,18 +18,29 @@ if(isset($_POST['form'])&&$_POST['form']==='inscription'){
     } elseif($motDePasse !== $motDePasseVerif){
         $alert = 'E: Form not valid : Passwords are not the same.';
     } else {
-        $query = 'INSERT INTO utilisateurs (identifiant, motDePasse, courriel, pseudonyme) VALUES (:identifiant, :motDePasse, :courriel, :pseudonyme);' ;
-        $motDePasse = password_hash($motDePasse, PASSWORD_ARGON2ID);
+        $query = 'SELECT identifiant FROM utilisateurs WHERE identifiant = :identifiant;' ;
         $prep = $pdo->prepare($query);
         $prep->bindParam(':identifiant', $identifiant);
-        $prep->bindParam(':motDePasse', $motDePasse);
-        $prep->bindParam(':courriel', $courriel);
-        $prep->bindParam(':pseudonyme', $pseudonyme);
         $prep->execute();
         $arrAll = $prep->fetchAll();
 
-        $alert = 'S: Form valid : inscription completed !';
-        $valid = true;
+        if( sizeof($arrAll)< 1 ) {
+            $query = 'INSERT INTO utilisateurs (identifiant, motDePasse, courriel, pseudonyme) VALUES (:identifiant, :motDePasse, :courriel, :pseudonyme);' ;
+            $motDePasse = password_hash($motDePasse, PASSWORD_ARGON2ID);
+            $prep = $pdo->prepare($query);
+            $prep->bindParam(':identifiant', $identifiant);
+            $prep->bindParam(':motDePasse', $motDePasse);
+            $prep->bindParam(':courriel', $courriel);
+            $prep->bindParam(':pseudonyme', $pseudonyme);
+            $prep->execute();
+            $arrAll = $prep->fetchAll();
+
+            $alert = 'S: Form valid : inscription completed !';
+            $valid = true;
+        } else {
+            $alert = 'E: Username already in use, please try another.';
+            $_SESSION['inscription_data'] = [ 'identifiant' => $identifiant, 'courriel' => $courriel, 'pseudonyme' => $pseudonyme];
+        }
     }
 
     if(isset($alert)){
@@ -61,7 +72,7 @@ if(isset($_POST['form'])&&$_POST['form']==='inscription'){
         <form action="#" method="post">
             <input name="form" type="hidden" value="inscription">
             <label for="identifiant">Identifiant de connexion</label>
-            <input  id="identifiant" name="identifiant" type="text" required>
+            <input  id="identifiant" name="identifiant" type="text" required<?= isset($_SESSION['inscription_data']['identifiant'])?" value=\"".$_SESSION['inscription_data']['identifiant']."\"":null ?>>
 
             <label for="motDePasse">Mot de passe (8 caractères minimum)</label>
             <input  id="motDePasse" name="motDePasse" type="password" required minlength="8" autocomplete="new-password">
@@ -70,12 +81,18 @@ if(isset($_POST['form'])&&$_POST['form']==='inscription'){
             <input  id="motDePasseVerif" name="motDePasseVerif" type="password" required minlength="8" autocomplete="new-password">
 
             <label for="courriel">Adresse mail de contact</label>
-            <input  id="courriel" name="courriel" type="email" required>
+            <input  id="courriel" name="courriel" type="email" required <?= isset($_SESSION['inscription_data']['courriel'])?" value=\"".$_SESSION['inscription_data']['courriel']."\"":null ?>>
 
             <label for="pseudonyme">Pseudonyme (Optionnel)</label>
-            <input  id="pseudonyme" name="pseudonyme" type="text">
+            <input  id="pseudonyme" name="pseudonyme" type="text" <?= isset($_SESSION['inscription_data']['pseudonyme'])?" value=\"".$_SESSION['inscription_data']['pseudonyme']."\"":null ?>>
 
             <button type="submit">S'inscrire</button>
+
+<?php
+    if ( isset($_SESSION['inscription_data']) ) {
+        unset($_SESSION['inscription_data']);
+    }
+?>
         </form>
     </main>
 

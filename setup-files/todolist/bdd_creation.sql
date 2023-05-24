@@ -4,7 +4,7 @@ USE todolist;
 
 CREATE TABLE utilisateurs (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    identifiant VARCHAR(20) NOT NULL,
+    identifiant VARCHAR(20) NOT NULL UNIQUE,
     motDePasse VARCHAR(45) NOT NULL,
     courriel VARCHAR(120) NOT NULL,
     pseudonyme VARCHAR(45)
