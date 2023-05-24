@@ -17,6 +17,8 @@ if(isset($_POST['form'])&&$_POST['form']==='inscription'){
         //header('Location: inscription.php');
     } elseif($motDePasse !== $motDePasseVerif){
         $alert = 'E: Form not valid : Passwords are not the same.';
+    } elseif(strlen($motDePasse) < 8){
+        $alert = 'E: Form not valid : Password to short.';
     } else {
         $query = 'SELECT identifiant FROM utilisateurs WHERE identifiant = :identifiant;' ;
         $prep = $pdo->prepare($query);
@@ -39,7 +41,6 @@ if(isset($_POST['form'])&&$_POST['form']==='inscription'){
             $valid = true;
         } else {
             $alert = 'E: Username already in use, please try another.';
-            $_SESSION['inscription_data'] = [ 'identifiant' => $identifiant, 'courriel' => $courriel, 'pseudonyme' => $pseudonyme];
         }
     }
 
@@ -53,6 +54,7 @@ if(isset($_POST['form'])&&$_POST['form']==='inscription'){
         exit();
     } else {
         header('Location: inscription.php');
+        $_SESSION['inscription_data'] = [ 'identifiant' => $identifiant, 'courriel' => $courriel, 'pseudonyme' => $pseudonyme];
         exit();
     }
 
